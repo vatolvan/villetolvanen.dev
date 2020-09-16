@@ -1,0 +1,25 @@
+# action.yml
+name: 'S3 push'
+description: 'Push files to S3'
+inputs:
+  upload-folder:  # id of input
+    description: 'Upload folder'
+    required: true
+    default: 'build'
+  aws-key:
+    description: 'AWS Access Key ID'
+    required: true
+  aws-secret:
+    description: 'AWS Access Key Secret'
+    required: true
+  aws-bucket-name:
+    description: 'Name of the bucket where to upload'
+    required: true
+runs:
+  using: 'docker'
+  image: 'Dockerfile'
+  args:
+    - ${{ inputs.upload-folder }}
+    - ${{ inputs.aws-key }}
+    - ${{ inputs.aws-secret }}
+    - ${{ inputs.aws-bucket-name }}
