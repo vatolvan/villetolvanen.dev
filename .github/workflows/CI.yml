@@ -19,11 +19,14 @@ jobs:
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v2
+      - name: Build site
+        uses: ./.github/actions/gatsby
+        id: gatsby
       - name: Push to S3
         uses: ./.github/actions/s3-push
         id: s3-push
         with:
-          upload-folder: './src'
+          upload-folder: './public'
           aws-key: ${{ secrets.AWS_ACCESS_KEY }}
           aws-secret: ${{ secrets.AWS_SECRET_KEY }}
           aws-bucket-name: ${{ secrets.AWS_BUCKET_NAME }}
